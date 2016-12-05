@@ -1,6 +1,6 @@
 {
   "name": "nemo-fixo",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Nemo plugin for fixo - an inheritable and composable JSON test fixtures for Node.js",
   "main": "index.js",
   "scripts": {
