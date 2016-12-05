@@ -1,3 +1,6 @@
+## v0.5.2 (5 Dec 2016)
+* Fix profiles list array passed to iterate function is not filtered by FIXO_ITERATE_PROFILES
+
 ## v0.5.1 (17 Nov 2016)
 * Handle error thrown when calling mocha it
 

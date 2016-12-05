@@ -79,7 +79,7 @@ describe('@iterate', function () {
             iterate('greeting', ['DE', 'ID'], function (profile, fixture, index) {
                 it('should iterate and load fixture for profile: ' + profile,
                     function () {
-                        assertGreeting(['ES', 'ID'], fixture.greeting, profile, fixture, index);
+                        assertGreeting(['ID'], fixture.greeting, profile, fixture, index);
                     }
                 );
             });

@@ -6,6 +6,7 @@ var path = require('path');
 var Fixo = require('fixo');
 var debug = require('debug')('nemo-fixo:iterate');
 var util = require('./lib/util');
+var includes = require('lodash.includes');
 
 var FIXTURE_ITERATE_KEY = 'iterate';
 var DEFAULT_ITERATE_LIST = 'all';
@@ -83,14 +84,25 @@ function iterate() {
 }
 
 function getProfiles(argProfiles, options, iterateConfig, fixoOptions) {
-    var profiles = argProfiles;
     debug('getProfiles() - iterate profiles:', argProfiles);
 
+    var profiles = argProfiles;
+
     // Get profiles from environment variables
-    if (process.env.FIXO_ITERATE_PROFILES) {
-        profiles = process.env.FIXO_ITERATE_PROFILES.split(',').map(function (profile) {
-            return profile.trim();
-        });
+    var envProfiles = process.env.FIXO_ITERATE_PROFILES;
+    if (envProfiles) {
+        profiles = envProfiles.split(',').reduce(function (result, profile) {
+            profile = profile.trim();
+            if (!profile || (argProfiles && !includes(argProfiles, profile))) {
+                return result;
+            }
+
+            result.push(profile);
+            return result;
+        }, []);
+
+        debug('getProfiles() - FIXO_ITERATE_PROFILES:', envProfiles, ', profiles:', profiles);
+        return profiles;
     }
 
     // Get profiles from iterate config
